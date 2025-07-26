@@ -1,0 +1,7 @@
+manifest: assets/manifest.txt
+ngc_key: assets/key_phs003199.ngc
+ref_dir: assets/ref
+out_dir: results/BAM
+log_dir: results/star_logs
+scratch_base: /scratch/${workflow.runId}
+threads: 12
