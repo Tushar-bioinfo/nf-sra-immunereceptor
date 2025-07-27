@@ -1,5 +1,5 @@
 manifest: assets/manifest.txt
-ngc_key: assets/key_phs003199.ngc
+ngc_key: assets/key_phs003199.ngc   ## Change this accordingly 
 ref_dir: assets/ref
 out_dir: results/BAM
 log_dir: results/star_logs
