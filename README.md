@@ -77,8 +77,7 @@ This pipeline supports three options for managing dependencies and environments:
 
 ---
 
-### 🧪 Option 1: Conda (Default)
-
+### Option 1: Conda (Default)
 No container needed — just use your existing Conda environment.
 
 #### Step 1: Create environment
@@ -100,7 +99,7 @@ nextflow run main.nf -profile local
 
 ---
 
-### 🐳 Option 2: Docker (for Local Use)
+### Option 2: Docker (for Local Use)
 
 If you're running locally (not HPC), you can use Docker to encapsulate all dependencies.
 
@@ -120,7 +119,7 @@ nextflow run main.nf -profile docker
 
 ---
 
-### 🛰️ Option 3: Singularity (Recommended for HPC)
+### Option 3: Singularity (Recommended for HPC)
 
 If you are running on HPC (e.g., with SLURM), Singularity ensures full compatibility.
 
