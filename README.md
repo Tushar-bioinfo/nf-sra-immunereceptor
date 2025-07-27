@@ -71,26 +71,90 @@ STAR --runThreadN 8 --runMode genomeGenerate      --genomeDir assets/ref      --
 
 ## Run the Pipeline
 
-### SLURM (HPC)
+Environment Setup
+
+This pipeline supports three options for managing dependencies and environments:
+
+---
+
+### 🧪 Option 1: Conda (Default)
+
+No container needed — just use your existing Conda environment.
+
+#### Step 1: Create environment
 
 ```bash
-nextflow run main.nf -profile slurm
+conda env create -f environment.yml
+conda activate immune-receptor-pipeline
 ```
 
-### Local Machine
+Make sure all tools like `fasterq-dump`, `STAR`, `sambamba`, and `samtools` are available after activation.
+
+#### Step 2: Run pipeline with Conda
 
 ```bash
 nextflow run main.nf -profile local
 ```
 
-### Custom Parameters
-
-```bash
-nextflow run main.nf   --manifest assets/my_manifest.csv   --ngc_key assets/my_key.ngc   --ref_dir assets/custom_ref/
-```
+> Conda will be used as the environment manager. All tools must be pre-installed or handled via your `environment.yml`.
 
 ---
 
+### 🐳 Option 2: Docker (for Local Use)
+
+If you're running locally (not HPC), you can use Docker to encapsulate all dependencies.
+
+#### Step 1: Build Docker image
+
+```bash
+docker build -t immune-pipeline .
+```
+
+#### Step 2: Run pipeline with Docker
+
+```bash
+nextflow run main.nf -profile docker
+```
+
+> This uses the `Dockerfile` and mounts the current working directory. No need to install tools manually.
+
+---
+
+### 🛰️ Option 3: Singularity (Recommended for HPC)
+
+If you are running on HPC (e.g., with SLURM), Singularity ensures full compatibility.
+
+#### Step 1: Enable Singularity in `nextflow.config`
+
+This is already configured:
+
+```groovy
+profiles {
+  slurm {
+    process.executor = 'slurm'
+    singularity.enabled = true
+    singularity.autoMounts = true
+  }
+}
+```
+
+#### Step 2: Build or pull container
+
+If using Docker on your local machine, convert to a Singularity image:
+
+```bash
+singularity build immune_pipeline.sif docker-daemon://immune-pipeline:latest
+```
+
+> Or use `--with-singularity <image>` if already available.
+
+#### Step 3: Run on HPC
+
+```bash
+nextflow run main.nf -profile slurm
+```
+
+---
 ## Output
 
 You’ll get sorted, indexed BAM files for each accession, focused on immune receptors:
