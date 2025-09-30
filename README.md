@@ -1,4 +1,4 @@
-# SRA to BAM: Immune Receptor Extraction Pipeline     
+# SRA to BAM: Immune Receptor Extraction Pipeline      
 
 This pipeline automates the conversion of SRA accessions into sorted, indexed BAM files focused on immune receptor regions (IGH, IGK, IGL, TRA, TRB, TRG). It is built using **Nextflow DSL2** for modularity, supports SLURM-based HPC or local execution, and ensures all intermediate files are cleaned up automatically.
 
